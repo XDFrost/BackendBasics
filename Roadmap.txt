@@ -1,0 +1,134 @@
+- 2 major components:
+    1. A programming language : Java, JS, PHP, golang, cpp
+    2. A Database : Mongo, MySQL, Postgres, Oracle, SQL Server
+
+- We'll use express and mongoose 
+- Node will be used as an env to run express and mongoose
+- Environments: 
+    1. Browser - For Frontend 
+    2. Node - For Backend
+- Express is a web application framework for Node.js for routing, middleware, and rendering HTML views
+- Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It is used to interact with MongoDB
+
+
+
+------------
+
+JS BASED BACKEND
+
+- Contains:
+    1. Data
+    2. File
+    3. Third Party (API)
+
+- JS runtimes: NodeJs / Deno / Bun
+- File Structure:
+    pacakge.json                .env                (Readme, git, lint, prettier etc..)
+
+    src:
+        index (DB Connection)           App(Contains Configrations)             constants(enum, dbname etc..)
+
+- Directory Structure:
+    1. DB : Actual code to connect to DB
+    2. Models : Schema to store data
+    3. Controllers : Functions/Methods
+    4. Routes : URL location
+    5. Middlewares : Security/Authentications
+    6. Utils : Small Functionalities
+    7. More : Depends
+    
+
+
+------------
+
+Device <---> get request <---> server
+               Express         listen
+
+- We'll use expressjs to communicate between device and server
+- Another package called Mongoose is used for DB interactions
+
+- listen means server has a 24/7 connection i.e. always available if user requests data 
+
+- requests is categorized in different categories based on work
+    - Anything written in browser by user is called get request
+
+- We'll make a empty node application to use Express now
+    - npm init  =>  initialize a empty node
+    - In order to run this index.js file using package.json, we'll make "scripts" command in it. For this, write "start" : "node index.js" in scripts, this will make a start command
+
+
+
+-----------
+
+- Express is a fast and minimalistic web framework for nodejs
+    1. const express = require('express') means we are importing express in our file
+    2. then we are making a object so that we can use express Functions
+    3. now, port is set 
+    4. Now, we'll make requests, our 2 default requests will be get and listen
+    5.  ```
+        app.get('/', (req, res) => {
+            res.send('Hello World')
+        })
+        ```
+        We are making a callback for get request ; on home route '/', when we'll have a (request) req, we'll give a callback (req, res) giving a response (res) 
+
+        In callback, we'll have 2 parameters i.e. request and response (req, res)
+
+
+        ```
+        app.listen(port, () => {
+            console.log('Example app listening to port ${port}');
+        })
+        ```
+
+        listen will be used to start a server that will listen to user requests. 
+        If we won't use listen, our server won't be formed and the app will terminate after running a single time.
+    6. Express doesn't support hot-reloading i.e. it won't reload the changes automatically, so we have to manually restart the server.
+    We can install nodemon to automate this
+
+
+
+-----------
+
+- We'll use dotenv package of npm to use environment vars for production
+- require('dotenv').config() is used to import .env file in index.js file
+- process.env.VARIABLE_NAME is used to use variables
+
+
+
+-----------
+
+- Ways to import files in JS:
+    1. Common JS  =>  require('MODULENAME')     Works synchronously
+    2. Module JS  =>  import MODULE from 'MODULE'       Works asynchronously
+        In order to use module JS, we'll add "type" : "module" in package.json
+ 
+- In frontend, we have a large set of tech like vite, create-react, parcel (called bundlers)etc.., these set of tools together are called tool chain
+
+- for API request, we can use fetch, Axios and reactquery
+- We'll use Axios (Additional Functionalities and features for web request like how data is coming, how is it handled, loading situation, failed situation, adding API keys after pausing a request)
+- We don't have to convert the data to json and all because axios handles it for us
+
+- In frontend, we'll use axios to get data from server (http response)
+    axios.get("url") 
+    .then((response) => { some code here })
+    .catch((error) => { handle error })
+ 
+    - Here axios.get will get the data from backend url
+    - .then will give a response
+    - .catch will catch exceptions
+
+- Now, we'll get a CORS (Cross Orgin Resource Sharing) or different origin error (same origin : URL, PORT... should be same)
+- CORS happens when:
+    - URL is different
+    - PORT is different
+- Solutions:
+    - Whitelist the whole URL
+    - '*' is used when we want that any user can request data from API
+
+- Now, in order to standardize the url for react frontend, we'll use proxy (Rerouting frontend requests)
+- To do this, enter config file and add server Configration
+- This will also solve CORS error as the server will treat the origin of react app same as that of proxy provided
+
+- npm run build will give a distribution folder with all code compiled. This folder will be further used in deployment
+
